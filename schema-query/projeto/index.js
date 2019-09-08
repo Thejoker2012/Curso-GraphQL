@@ -163,3 +163,18 @@ const server = new ApolloServer({
 server.listen().then(({ url })=>{
     console.log(`Executando em ${url}`)
 })
+
+/*usuario(id:3){
+    ...usuarioCompleto
+  }
+  usuarios{
+    ...usuarioCompleto
+  }
+}
+
+fragment usuarioCompleto on Usuario {
+  id nome email idade salario vip
+  perfil {nome id}
+  
+}
+*/
