@@ -1,5 +1,6 @@
 //import do Appolo e gql(gql é uma tagged de template é uma função que faz tratamento de string)
 const {ApolloServer, gql} = require('apollo-server')
+const {importSchema} = require('graphql-import')
 
 const perfis = [
     {id: 1, nome:'Usuário'},
@@ -28,49 +29,6 @@ const usuarios = [{
 },]
 
 //Definições de Tipos
-const typeDefs = gql`
-
-    #Criar tipos de dados personalizados para o GraphQL
-    scalar Date
-    #Tipos Scalares do GraphQL (ID,String,Int,Float,Boolean)
-    type Usuario{
-        id:Int!
-        nome: String!
-        email: String!
-        idade: Int
-        salario: Float
-        vip: Boolean
-        perfil: Perfil
-
-    }
-
-    type Perfil{
-        id: Int
-        nome:String
-    }
-
-    type Produto{
-        nome: String!
-        preco: Float!
-        desconto: Float
-        precoComDesconto: Float
-    }
-
-    #Ponto de entrada da API
-    type Query{
-        ola:String!
-        horaAtual:Date!
-        usuarioLogado: Usuario
-        produtoEmDestaque: Produto
-        numeroMegaSena:[Int!]!
-        usuarios:[Usuario]
-        usuario(id: Int):Usuario
-        perfis:[Perfil]
-        perfil(id:Int):Perfil
-    
-    }
-
-`
 //Resolve os dados que foram solicitados pelo typeDefs
 const resolvers={
     Produto:{
@@ -143,19 +101,12 @@ const resolvers={
             .filter(p => p.id === id)
             return sels ? sels[0]:null
         }
-
-        
-
-        
-        
     }
-
-
 }
 
 //Sempre usar typeDef e resolvers como nome das consts, padrão de desenvolvimento
 const server = new ApolloServer({
-    typeDefs,
+    typeDefs: importSchema('./schema/index.graphql'),
     resolvers
 })
 
