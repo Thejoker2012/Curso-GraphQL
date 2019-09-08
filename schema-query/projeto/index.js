@@ -6,11 +6,23 @@ const typeDefs = gql`
 
     #Criar tipos de dados personalizados para o GraphQL
     scalar Date
+    #Tipos Scalares do GraphQL (ID,String,Int,Float,Boolean)
+    type Usuario{
+        id:ID!
+        nome: String!
+        email: String!
+        idade: Int
+        salario: Float
+        vip: Boolean
+
+    }
 
     #Ponto de entrada da API
     type Query{
-        ola:String
-        horaAtual:Date
+        ola:String!
+        horaAtual:Date!
+        usuarioLogado: Usuario
+    
     }
 
 `
@@ -22,7 +34,18 @@ const resolvers={
         },
         horaAtual(){
             return new Date
+        },
+        usuarioLogado(){
+            return{
+                id:1,
+                nome:'Ana da Web',
+                email:'anadaweb@email.com',
+                idade:23,
+                salario: 1234.56,
+                vip:true
+            }
         }
+        
         
     }
 
