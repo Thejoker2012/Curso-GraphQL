@@ -1,6 +1,23 @@
 //import do Appolo e gql(gql é uma tagged de template é uma função que faz tratamento de string)
 const {ApolloServer, gql} = require('apollo-server')
 
+const usuarios = [{
+    id:1,
+    nome:'João Silva',
+    email:'jsilva@gmail.com',
+    idade:29
+},{
+    id:2,
+    nome:'Maria Silva',
+    email:'Msilva@gmail.com',
+    idade:28
+},{
+    id:3,
+    nome:'Marcos Silva',
+    email:'Masilva@gmail.com',
+    idade:22
+},]
+
 //Definições de Tipos
 const typeDefs = gql`
 
@@ -31,6 +48,7 @@ const typeDefs = gql`
         usuarioLogado: Usuario
         produtoEmDestaque: Produto
         numeroMegaSena:[Int!]!
+        usuarios:[Usuario]
     
     }
 
@@ -82,6 +100,9 @@ const resolvers={
             return Array(6).fill(0)
             .map(n=> parseInt(Math.random()*60+1))
             .sort(crescente)
+        },
+        usuarios(){
+            return usuarios
         }
         
 
