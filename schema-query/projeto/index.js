@@ -2,25 +2,29 @@
 const {ApolloServer, gql} = require('apollo-server')
 
 const perfis = [
-    {id: 1, nome:'comun'},
-    {id: 2, nome:'administrador'}
+    {id: 1, nome:'Usuário'},
+    {id: 2, nome:'Administrador'}
 ]
 
 const usuarios = [{
     id:1,
     nome:'João Silva',
     email:'jsilva@gmail.com',
-    idade:29
+    idade:29,
+    perfil_id: 1
 },{
     id:2,
     nome:'Maria Silva',
     email:'Msilva@gmail.com',
-    idade:28
+    idade:28,
+    perfil_id: 2
+
 },{
     id:3,
     nome:'Marcos Silva',
     email:'Masilva@gmail.com',
-    idade:22
+    idade:22,
+    perfil_id: 1
 },]
 
 //Definições de Tipos
@@ -36,6 +40,7 @@ const typeDefs = gql`
         idade: Int
         salario: Float
         vip: Boolean
+        perfil: Perfil
 
     }
 
@@ -81,6 +86,11 @@ const resolvers={
     Usuario:{
         salario(usuario){
             return usuario.salario_real
+        },
+        perfil(usuario){
+            const sels = perfis
+            .filter(p => p.id === usuario.perfil_id)
+            return sels ? sels[0]:null
         }
     },
 
