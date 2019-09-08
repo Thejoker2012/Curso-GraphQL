@@ -3,10 +3,14 @@ const {ApolloServer, gql} = require('apollo-server')
 
 //Definições de Tipos
 const typeDefs = gql`
+
+    #Criar tipos de dados personalizados para o GraphQL
+    scalar Date
+
     #Ponto de entrada da API
     type Query{
         ola:String
-        horaAtual:String
+        horaAtual:Date
     }
 
 `
@@ -17,7 +21,7 @@ const resolvers={
             return 'Bom Dia'
         },
         horaAtual(){
-            return `${new Date}`
+            return new Date
         }
         
     }
