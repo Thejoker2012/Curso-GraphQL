@@ -25,7 +25,7 @@ const typeDefs = gql`
     scalar Date
     #Tipos Scalares do GraphQL (ID,String,Int,Float,Boolean)
     type Usuario{
-        id:ID!
+        id:Int!
         nome: String!
         email: String!
         idade: Int
@@ -49,6 +49,7 @@ const typeDefs = gql`
         produtoEmDestaque: Produto
         numeroMegaSena:[Int!]!
         usuarios:[Usuario]
+        usuario(id: Int):Usuario
     
     }
 
@@ -103,7 +104,16 @@ const resolvers={
         },
         usuarios(){
             return usuarios
+        },
+
+        //O Tipo ID é um valor String 
+        usuario(_, args){
+            const sels = usuarios
+            .filter(u => u.id === args.id)
+            return sels ? sels[0]:null
+
         }
+
         
 
         
