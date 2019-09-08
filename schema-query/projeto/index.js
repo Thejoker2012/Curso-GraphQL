@@ -6,6 +6,7 @@ const typeDefs = gql`
     #Ponto de entrada da API
     type Query{
         ola:String
+        horaAtual:String
     }
 
 `
@@ -14,7 +15,11 @@ const resolvers={
     Query:{
         ola(){
             return 'Bom Dia'
+        },
+        horaAtual(){
+            return `${new Date}`
         }
+        
     }
 
 
