@@ -1,6 +1,11 @@
 //import do Appolo e gql(gql é uma tagged de template é uma função que faz tratamento de string)
 const {ApolloServer, gql} = require('apollo-server')
 
+const perfis = [
+    {id: 1, nome:'comun'},
+    {id: 2, nome:'administrador'}
+]
+
 const usuarios = [{
     id:1,
     nome:'João Silva',
@@ -34,6 +39,11 @@ const typeDefs = gql`
 
     }
 
+    type Perfil{
+        id: Int
+        nome:String
+    }
+
     type Produto{
         nome: String!
         preco: Float!
@@ -50,6 +60,8 @@ const typeDefs = gql`
         numeroMegaSena:[Int!]!
         usuarios:[Usuario]
         usuario(id: Int):Usuario
+        perfis:[Perfil]
+        perfil(id:Int):Perfil
     
     }
 
@@ -112,6 +124,14 @@ const resolvers={
             .filter(u => u.id === args.id)
             return sels ? sels[0]:null
 
+        },
+        perfis(){
+            return perfis
+        },
+        perfil(_, { id }){
+            const sels = perfis
+            .filter(p => p.id === id)
+            return sels ? sels[0]:null
         }
 
         
