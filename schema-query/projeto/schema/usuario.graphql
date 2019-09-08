@@ -3,6 +3,13 @@ type Perfil{
     id: Int
     nome:String
 }
+
+enum UsuarioStatus{
+    ATIVO
+    INATIVO
+    BLOQUEADO
+}
+
 #Tipos Scalares do GraphQL (ID,String,Int,Float,Boolean)
 type Usuario{
     id:Int!
@@ -12,5 +19,6 @@ type Usuario{
     salario: Float
     vip: Boolean
     perfil: Perfil
+    status: UsuarioStatus
 
 }
