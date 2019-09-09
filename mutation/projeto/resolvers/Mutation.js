@@ -1,12 +1,22 @@
 const {usuarios, proximoId} = require('../data/db')
 
 module.exports={
-    novoUsuario(_, {nome, email, idade}){
+    //{nome, email, idade} substituido por args( Passa todos os parametros em um unica linha args = {nome, email, idade})
+    novoUsuario(_, args){
+
+        //O parametro some vai verificar se existe algum email igual ao que está sendo inserido no banco
+        const emailExistente = usuarios
+        .some(u=>u.email === args.email)
+
+        //Validação se existe email
+        if (emailExistente) {
+            throw new Error('E-mail cadastrado!')
+            
+        }
+
         const novo = {
             id: proximoId,
-            nome,
-            email,
-            idade,
+            ...args,
             perfil_id:1,
             status:'ATIVO'
         }
